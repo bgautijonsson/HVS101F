@@ -11,5 +11,16 @@ lapply_and_sapply
 vapply_and_tapply
 Looking_at_Data
 Simulation
+Principles_of_Analytic_Graphs
+Exploratory_Graphs
+Graphics_Devices_in_R
+Base_Plotting_System
+Working_with_Colors
+GGPlot2_Part1
+GGPlot2_Part2
+GGPlot2_Extras
+Manipulating_Data_with_dplyr
+Grouping_and_Chaining_with_dplyr
+Tidying_Data_with_tidyr
 Dates_and_Times
-Base_Graphics
+Dates_and_Times_with_lubridate
