@@ -11,6 +11,18 @@
 # can be used for for the purpose, but it also re-evaluates the
 # expression which the user entered, so care must be taken.
 
+
+# Returns TRUE if the user has calculated a value equal to that calculated by the given expression.
+calculates_same_value <- function(expr){
+  e <- get("e", parent.frame())
+  # Calculate what the user should have done.
+  eSnap <- cleanEnv(e$snapshot)
+  val <- eval(parse(text=expr), eSnap)
+  passed <- isTRUE(all.equal(val, e$val))
+  if(!passed)e$delta <- list()
+  return(passed)
+}
+
 # Get the swirl state
 getState <- function(){
   # Whenever swirl is running, its callback is at the top of its call stack.
