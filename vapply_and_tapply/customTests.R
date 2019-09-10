@@ -11,6 +11,17 @@
 # can be used for for the purpose, but it also re-evaluates the
 # expression which the user entered, so care must be taken.
 
+readline_clean <- function(prompt = "") {
+  wrapped <- strwrap(prompt, width = getOption("width") - 2)
+  mes <- stringr::str_c("| ", wrapped, collapse = "\n")
+  message(mes)
+  readline()
+}
+
+hrule <- function() {
+  message("\n", paste0(rep("#", getOption("width") - 2), collapse = ""), "\n")
+}
+
 # Get the swirl state
 getState <- function(){
   # Whenever swirl is running, its callback is at the top of its call stack.

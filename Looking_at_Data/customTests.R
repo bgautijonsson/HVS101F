@@ -11,6 +11,30 @@
 # can be used for for the purpose, but it also re-evaluates the
 # expression which the user entered, so care must be taken.
 
+# For compatibility with 2.2.21
+.get_course_path <- function(){
+  tryCatch(swirl:::swirl_courses_dir(),
+           error = function(c) {file.path(find.package("swirl"),"Courses")}
+  )
+}
+
+# Path to data
+.datapath <- file.path(.get_course_path(),
+                       'R_Programming_E', 'Looking_at_Data',
+                       'plant-data.txt')
+# Read in data
+plants <- read.csv(.datapath, strip.white=TRUE, na.strings="")
+
+# Remove annoying columns
+.cols2rm <- c('Accepted.Symbol', 'Synonym.Symbol')
+plants <- plants[, !(names(plants) %in% .cols2rm)]
+
+# Make names pretty
+names(plants) <- c('Scientific_Name', 'Duration', 'Active_Growth_Period',
+                   'Foliage_Color', 'pH_Min', 'pH_Max',
+                   'Precip_Min', 'Precip_Max',
+                   'Shade_Tolerance', 'Temp_Min_F')
+
 # Get the swirl state
 getState <- function(){
   # Whenever swirl is running, its callback is at the top of its call stack.
@@ -50,4 +74,15 @@ submit_log <- function(){
   write.csv(log_tbl, file = temp, row.names = FALSE)
   encoded_log <- base64encode(temp)
   browseURL(paste0(pre_fill_link, encoded_log))
+}
+
+readline_clean <- function(prompt = "") {
+  wrapped <- strwrap(prompt, width = getOption("width") - 2)
+  mes <- stringr::str_c("| ", wrapped, collapse = "\n")
+  message(mes)
+  readline()
+}
+
+hrule <- function() {
+  message("\n", paste0(rep("#", getOption("width") - 2), collapse = ""), "\n")
 }

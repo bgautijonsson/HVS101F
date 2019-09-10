@@ -11,6 +11,16 @@
 # can be used for for the purpose, but it also re-evaluates the
 # expression which the user entered, so care must be taken.
 
+calculates_same_value <- function(expr){
+  e <- get("e", parent.frame())
+  # Calculate what the user should have done.
+  eSnap <- cleanEnv(e$snapshot)
+  val <- eval(parse(text=expr), eSnap)
+  passed <- isTRUE(all.equal(val, e$val))
+  if(!passed)e$delta <- list()
+  return(passed)
+}
+
 # Get the swirl state
 getState <- function(){
   # Whenever swirl is running, its callback is at the top of its call stack.
@@ -50,4 +60,15 @@ submit_log <- function(){
   write.csv(log_tbl, file = temp, row.names = FALSE)
   encoded_log <- base64encode(temp)
   browseURL(paste0(pre_fill_link, encoded_log))
+}
+
+readline_clean <- function(prompt = "") {
+  wrapped <- strwrap(prompt, width = getOption("width") - 2)
+  mes <- stringr::str_c("| ", wrapped, collapse = "\n")
+  message(mes)
+  readline()
+}
+
+hrule <- function() {
+  message("\n", paste0(rep("#", getOption("width") - 2), collapse = ""), "\n")
 }
