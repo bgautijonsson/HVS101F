@@ -1,3 +1,5 @@
+swirl_options(swirl_logging = TRUE)
+
 # Handles time info with ymd_hms()
 dt1 <- '2014-08-23 17:23:02'
 

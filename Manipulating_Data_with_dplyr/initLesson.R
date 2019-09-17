@@ -6,6 +6,8 @@
 # write.csv(cranlog, 'Getting_and_Cleaning_Data/Manipulating_Data_with_dplyr/2014-07-08.csv')
 # unlink(filepath)
 
+swirl_options(swirl_logging = TRUE)
+
 # For compatibility with 2.2.21
 .get_course_path <- function(){
   tryCatch(swirl:::swirl_courses_dir(),

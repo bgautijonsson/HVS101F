@@ -1,3 +1,5 @@
+swirl_options(swirl_logging = TRUE)
+
 library(dplyr)
 
 # number of letter grades (A - E)
